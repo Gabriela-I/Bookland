@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <style>
+
+    </style>
+    <ul>
+        {% for book in books %}
+            <div class="book-card-catalogue">
+                <div class="catalogue-image-wrap">
+                    <img src="{{ book.book_photo.url }}"
+                         alt="{{ book.title }}">
+                </div>
+                <div class="card-text">
+                    <h3>{{ book.title }}</h3>
+                    <h1>{{ book.author }}</h1>
+                    <h1>{{ book.publisher }}</h1>
+                </div>
+
+                <div class="details-buttons">
+                    <a href="{% url 'book details' book_pk=book.pk %}" class="details-btn">Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}

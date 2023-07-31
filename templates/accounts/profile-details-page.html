@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-profile-books">
+        <div class="profile">
+            <div class="profile-data">
+            <div class="profile_img">
+                <div class="image">
+                    <img src="{{ profile_image }}" alt="img8">
+                </div>
+            </div>
+            <div class="personal">
+                <div class="edit">
+                    <p>{{ object.username }}</p>
+
+                    <a href="{% url 'edit user' pk=object.pk %}">
+                        <img class="edit-img" src="{% static 'images/pencil-icon.png' %}" alt="edit button">
+                    </a>
+
+                    <a href="{% url 'delete user' pk=object.pk %}">
+                        <img class="bin-img" src="{% static 'images/delete-icon.png' %}" alt="bin button">
+                    </a>
+
+                </div>
+                <div class="data">
+                    <span>4</span>
+                    <p>photos</p>
+                    <span>7</span>
+                    <p>pets</p>
+                    <span>436</span>
+                    <p>likes</p>
+                </div>
+
+                <h3 class="names">
+                    {% if object.full_name is not None %}
+                        {{ object.full_name }}
+                    {% endif %}
+                </h3>
+
+                <p class="email">{{ object.email }}</p>
+
+                <p class="gender">{{ object.gender }}</p>
+            </div>
+        </div>
+        </div>
+        <div class="book-container">
+            {% for book in object.book_set.all %}
+                <div class="book-card">
+                    <div class="image-wrap">
+                        <img src="{{ book.book_photo.url }}"
+                             alt="{{ book.title }}">
+                    </div>
+                    <div class="card-text">
+                        <h3>{{ book.title|truncatechars:30 }}</h3>
+                        <h1>{{ book.author|truncatechars:30 }}</h1>
+                        <h1>{{ book.publisher|truncatechars:30 }}</h1>
+                    </div>
+
+                    <div class="details-buttons">
+                        <a href="{% url 'book details' book_pk=book.pk %}" class="details-btn">Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

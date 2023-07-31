@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        body {
+            background-image: url("static/images/2964941.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <div>
+    {% if last_3_books %}
+        <div>
+            <h1 class="text-index">Last uploaded books:</h1>
+        </div>
+        <div style="justify-content: center; margin-top: 50px ">
+            {% for book in last_3_books %}
+                <div class="book-card">
+                    <div class="image-wrap">
+                        <img src="{{ book.book_photo.url }}"
+                             alt="{{ book.title }}">
+                    </div>
+                    <div class="card-text">
+                        <h3>{{ book.title|truncatechars:30 }}</h3>
+                        <h1>{{ book.author|truncatechars:30 }}</h1>
+                        <h1>{{ book.publisher|truncatechars:30 }}</h1>
+                    </div>
+
+                    <div class="details-buttons">
+                        <a href="{% url 'book details' book_pk=book.pk %}" class="details-btn">Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+
+
+{% endblock %}

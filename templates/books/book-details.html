@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="book-container">
+        <div class="book">
+            <div class="book-data">
+                <div class="book_img">
+                    <div class="book_image">
+                        <img src="{{ book.book_photo.url }}" alt="img">
+                    </div>
+                </div>
+                <div class="personal">
+                    <div class="edit">
+                        <p>{{ book.title }}</p>
+
+                        {#                    <a href="{% url 'edit user' pk=object.pk %}">#}
+                        {#                        <img class="edit-img" src="{% static 'images/pencil-icon.png' %}" alt="edit button">#}
+                        {#                    </a>#}
+                        {##}
+                        {#                    <a href="{% url 'delete user' pk=object.pk %}">#}
+                        {#                        <img class="bin-img" src="{% static 'images/delete-icon.png' %}" alt="bin button">#}
+                        {#                    </a>#}
+
+                    </div>
+                    {#                    <button class="buy-btn" type="submit">Buy</button>#}
+                    <a href="{% url 'book buy' book_pk=book.pk %}" class="buy-btn">Buy</a>
+
+
+                    <p class="email">Author: {{ book.author }}</p>
+                    <p class="email">Publisher: {{ book.publisher }}</p>
+                    <p class="email">Condition: {{ book.condition }}</p>
+                    <p class="email">Prise: {{ book.price| floatformat:'2g' }}€</p>
+                    <p class="email">Description: {{ book.description }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

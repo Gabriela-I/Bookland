@@ -1,0 +1,103 @@
+.book-container {
+    display: flex;
+    /*margin: 140px 5% 0 8%;*/
+    margin-bottom: 30px;
+    margin-left: 120px;
+    margin-right: 100px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.add_book {
+    margin: 140px 35% 0 38%;
+}
+
+.book_image {
+    width: 30px;
+    height: 60px;
+    z-index: 1;
+}
+
+.book_img img {
+    width: 170px;
+    height: 200px;
+    margin-top: 10px;
+    object-fit: cover;
+    border-radius: 3%;
+    border: 2px solid black;
+}
+
+.book {
+    margin: 120px;
+    width: 800px;
+}
+
+.book-data {
+    gap: 160px;
+    justify-content: center;
+    display: flex;
+    background-image: linear-gradient(160deg, #5E5558 0%, #990a0a 100%);
+    border: 1px solid rgb(156, 152, 152);
+    padding: 40px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border: 1px solid;
+    height: 500px;
+}
+
+.book-text {
+    z-index: 0;
+}
+
+.book-card-catalogue {
+    min-width: 200px;
+    #background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin-top: 150px;
+    padding: 50px;
+    margin-left: 50px;
+    background-position: right 35% bottom 45%;
+    box-sizing: border-box;
+    height: 380px;
+    width: 165px;
+    margin-right: 20px;
+
+}
+
+.card-text h3,
+.card-text h1 {
+    text-align: center;
+    font-size: 15px;
+    margin-left: -50px;
+    margin-right: -50px;
+    color: white;
+}
+
+.catalogue-image-wrap {
+    background-size: cover;
+    background-position: center;
+    width: 160px;
+    height: 210px;
+    display: inline-block;
+    border-radius: 2%;
+    border: 1px solid black;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    margin-left: -30px;
+    margin-top: -30px;
+}
+
+.methods {
+    list-style-type: none;
+    margin-left: -75px;
+    width: 250px;
+}
+
+.methods input[type="radio"] {
+    margin-right: -115px;
+}
