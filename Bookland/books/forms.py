@@ -1,6 +1,6 @@
 from django import forms
 
-from Bookland.books.models import Book, BookComment
+from Bookland.books.models import Book, BookComment, Purchase
 
 choice_list = [
     ('', '------'),
@@ -47,17 +47,6 @@ class BookAddForm(forms.ModelForm):
 
 
 class BuyBookForm(forms.ModelForm):
-    DELIVERY_METHODS = (
-        ('FedEx', 'FedEx'),
-        ('DHL', 'DHL'),
-        ('UPS', 'UPS'),
-    )
-
-    PAYMENT_METHODS = (
-        ('Bank payment', 'Bank payment'),
-        ('Direct debit - VISA, MasterCard', 'Direct debit - VISA, MasterCard'),
-    )
-
     class Meta:
         model = Book
         fields = ('title', 'condition', 'price',)
@@ -80,48 +69,34 @@ class BuyBookForm(forms.ModelForm):
     def format_price_value(self, value):
         return f'{value:.2f}' if value is not None else ''
 
-    first_name = forms.CharField(
-        max_length=50,
-        required=True,
-        label='Fisrt name',
+
+class PurchaseForm(forms.ModelForm):
+    DELIVERY_METHODS = (
+        ('', '------'),
+        ('FedEx', 'FedEx'),
+        ('DHL', 'DHL'),
+        ('UPS', 'UPS'),
     )
 
-    last_name = forms.CharField(
-        max_length=50,
-        required=True,
-        label='Last name',
+    PAYMENT_METHODS = (
+        ('', '------'),
+        ('Cash on Delivery', 'Cash on Delivery'),
     )
+    delivery_method = forms.ChoiceField(choices=DELIVERY_METHODS, required=True)
+    payment_method = forms.ChoiceField(choices=PAYMENT_METHODS, required=True)
 
-    phone_number = forms.IntegerField(
-        required=True,
-        label='Phone number',
-    )
-
-    address_for_delivery = forms.CharField(
-        max_length=150,
-        required=True,
-        label='Shipping address',
-    )
-
-    delivery_method = forms.ChoiceField(
-        choices=DELIVERY_METHODS,
-        label='Delivery method',
-        widget=forms.RadioSelect(
-            attrs={
-                'class': 'methods',
-            }
-        ),
-    )
-
-    payment_method = forms.ChoiceField(
-        choices=PAYMENT_METHODS,
-        label='Payment method',
-        widget=forms.RadioSelect(
-            attrs={
-                'class': 'methods',
-            },
-        ),
-    )
+    class Meta:
+        model = Purchase
+        fields = (
+        'first_name', 'last_name', 'phone_number', 'address_for_delivery', 'delivery_method', 'payment_method')
+        labels = {
+            'first_name': 'First Name:',
+            'last_name': 'Last Name:',
+            'phone_number': 'Phone Number:',
+            'address_for_delivery': 'Shipping Address:',
+            'delivery_method': 'Delivery Method',
+            'payment_method': 'Payment Method',
+        }
 
 
 class BookEditForm(forms.ModelForm):
@@ -132,7 +107,6 @@ class BookEditForm(forms.ModelForm):
         fields = ('book_photo', 'title', 'author', 'publisher', 'description', 'category', 'condition', 'price',)
         widgets = {
             'book_photo': forms.FileInput(attrs={
-                # 'style': 'display: flex; gap: 30px;',
 
             }),
             'price': forms.NumberInput(attrs={
@@ -183,8 +157,8 @@ class BookCommentForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(
                 attrs={
-                    'placeholder': 'Add comment...','color: dimgray;'
-                    'cols': 70,
+                    'placeholder': 'Add comment...', 'color: dimgray;'
+                                                     'cols': 70,
                     'rows': 3,
                 }
             ),

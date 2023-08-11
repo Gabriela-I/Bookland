@@ -6,3 +6,4 @@ urlpatterns = (
     path('category/<str:cats>/', category, name='category'),
     path('search/', search, name='search'),
 )
+

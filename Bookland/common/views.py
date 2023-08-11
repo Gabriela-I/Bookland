@@ -28,7 +28,7 @@ class IndexView(TemplateView):
 def search(request):
     if request.method == 'POST':
         searched = request.POST['searched']
-        book_paginator = Paginator(Book.objects.filter(title__contains=searched), 8)
+        book_paginator = Paginator(Book.objects.filter(title__icontains=searched), 8)
         page = request.GET.get('page')
         books = book_paginator.get_page(page)
         page_range = book_paginator.page_range
@@ -63,3 +63,6 @@ def category(request, cats):
     }
     return render(request, 'common/categories.html', context)
 
+
+def error_404_view(request, exception):
+    return render(request, 'errors/404.html')

@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 
-from Bookland.books.forms import BookAddForm, BuyBookForm, BookEditForm, BookDeleteForm, BookCommentForm
-from Bookland.books.models import Book, BookComment
+from Bookland.books.forms import BookAddForm, BuyBookForm, BookEditForm, BookDeleteForm, BookCommentForm, PurchaseForm
+from Bookland.books.models import Book, BookComment, Purchase
 from Bookland.books.utils import has_user_marked_book, get_comment_url
 from Bookland.books.models import MyList
 from django.contrib import messages
@@ -93,8 +93,7 @@ def buy_book(request, book_pk):
         form = BuyBookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            book.delete()
-            return redirect('completed order')
+            return redirect('finish purchase', book_pk=book_pk)
     else:
         form = BuyBookForm(instance=book)
 
@@ -105,6 +104,32 @@ def buy_book(request, book_pk):
     }
 
     return render(request, 'books/buy_book.html', context)
+
+@login_required
+def finish_purchase(request, book_pk):
+    book = Book.objects.get(pk=book_pk)
+
+    if request.method == 'POST':
+        form = PurchaseForm(request.POST)
+        if form.is_valid():
+            purchase = form.save(commit=False)
+            purchase.buyer = request.user
+            purchase.seller = book.user
+            purchase.book = book
+            purchase.save()
+            return redirect('completed order')
+    else:
+        form = PurchaseForm()
+
+    context = {
+        'form': form,
+        'book': book,
+    }
+
+    return render(request, 'books/finish_purchase.html', context)
+
+
+
 
 
 def completed_order(request):
@@ -174,3 +199,5 @@ def book_comment(request, book_pk):
         'comments': comments,
     }
     return render(request, 'books/book-details.html', context)
+
+
