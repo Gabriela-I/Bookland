@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.5)), url('/static/images/2964941.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: cursive;
+    min-height: 100vh;
+    justify-content: center;
+
+}
+
+.error {
+    color: red;
+}
+
+
+.navbar {
+    position: fixed;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(160deg, #5E5558 0%, #990a0a 100%);
+    width: 100%;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.catalogue-container {
+    display: flex;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    width: 1000px;
+}
+
+.catalogue-book-card {
+    min-width: 200px;
+    background-image: linear-gradient(160deg, #5E5558 0%, #990a0a 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 50px;
+    margin-left: 25px;
+    background-position: right 35% bottom 45%;
+    box-sizing: border-box;
+    width: 165px;
+    height: 380px;
+    margin-right: 25px;
+    float: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.container {
+    padding: 15px 0;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container a {
+    color: #0a0a0a;
+}
+
+.title_text {
+    font-family: "Times New Roman", cursive;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    color: pink;
+    font-size: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.pagination .current {
+    font-size: 30px;
+    font-weight: bold;
+    color: deeppink;
+}
+
+.personal {
+    font-family: "Times New Roman", cursive;
+    font-size: 18px;
+}
+
+.main-btn {
+    background-color: rgb(158, 117, 117);
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 150px;
+    margin-top: 10px;
+}
+
+.main-btn:active {
+    background-color: palevioletred;
+}
+
+.button_without_action {
+    background-color: #c43f50;
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.photo-input {
+    margin-left: 20px;
+}
+
+
+.errorlist {
+    color: red;
+    list-style-type: none;
+}
+
+.container .logo {
+    display: flex;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.searchbar {
+    text-align: end;
+}
+
+.searchbar label {
+    display: none;
+}
+
+.searchbar input {
+    background-color: rgb(227, 206, 206);
+    width: 80%;
+    padding: 5px 5px 5px 0;
+    text-indent: 18px;
+    outline: none;
+    border: 1px solid rgb(218, 217, 217);
+    border-radius: 4px;
+}
+
+.searchbar button {
+    background-color: rgb(227, 206, 206);
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    border-radius: 4px;
+    width: 50px;
+}
+
+.searchbar button:active {
+    background-color: palevioletred;
+}
+
+.searchbar img {
+    position: absolute;
+    margin-left: -2.5rem;
+    margin-top: -0.8rem;
+}
+
+.searchbar input::placeholder {
+    font-weight: lighter;
+    color: rgb(54, 47, 47);
+}
+
+.text-index {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+.home {
+    font-size: 25px;
+    margin: 10px 0 0 3px;
+    color: black;
+    font-family: cursive;
+}
+
+.nav-links {
+    font-weight: inherit;
+    color: rgb(2, 2, 2);
+}
+
+.nav-group .nav-item {
+    list-style-type: none;
+    margin: 0 8px;
+}
+
+.nav-group .nav-item a {
+    font-size: 22px;
+    display: block;
+    color: black;
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li.dropdown {
+    position: relative;
+    list-style-type: none;
+    margin: 0 8px;
+    font-weight: inherit;
+    font-family: cursive;
+    font-size: 22px;
+    color: black;
+}
+
+.dropbtn {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 8px;
+    text-decoration: none;
+    display: block;
+    border-radius: 8px;
+    width: 250px;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+li.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.action .profile {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action .profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .container {
+    position: relative;
+    margin-top: 60px;
+    width: 75%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.col-9 {
+    width: 65%;
+    margin: 5% auto;
+    margin-bottom: -20px;
+}
+
+.col-9 .card {
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    /* min-height: 400px; */
+    display: inline-block;
+    border: 1px solid rgba(7, 7, 7, 0.24);
+}
+
+.col-9 .card .top {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.col-9 .card .bottom {
+    padding: 10px 20px;
+}
+
+.col-9 .card .top .userDetails {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.profilepic {
+    display: inline-block;
+}
+
+.profilepic .profile_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to right, red, orange);
+    padding: 2px;
+    margin-right: 8px;
+}
+
+.profilepic .profile_img .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    margin-top: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+.profilepic .profile_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 0 !important;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.col-9 .card .top .userDetails h3 {
+    font-size: 16px;
+    color: #4d4d4f;
+    font-weight: 500;
+    line-height: 1em;
+    white-space: nowrap;
+}
+
+.col-9 .card .top .userDetails h3 span {
+    font-size: 0.75em;
+}
+
+.col-9 .card .top .userDetails h3 span {
+    font-size: 0.75em;
+}
+
+.dot {
+    transform: scale(0.6);
+    cursor: pointer;
+}
+
+.imgBx {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    margin: 10px 0 15px;
+}
+
+.actionBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actionBtns svg {
+    cursor: pointer;
+}
+
+.actionBtns .left svg {
+    margin-right: 8px;
+}
+
+.likes {
+    font-weight: 500;
+    margin-top: 5px;
+    font-size: 14px;
+    cursor: default;
+    color: #4d4d4f;
+}
+
+.message {
+    font-weight: 400;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5em;
+}
+
+.message b {
+    color: #262626;
+}
+
+.message span {
+    cursor: pointer;
+    color: #1d92ff;
+}
+
+.details {
+    margin-top: 10px;
+    font-weight: 400;
+    color: #999;
+}
+
+.Comments {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-top: thick double black ;
+    padding: 10px 0;
+}
+
+.Comments button {
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 15px;
+    height: 30px;
+    width: 50px;
+    background-color: #d1d600;
+    margin: auto;
+}
+
+.Comments form label {
+    display: none;
+}
+
+.Comments form {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/*@media screen and (max-width: 1000px) {*/
+/*    .col-9 {*/
+/*        width: 100%;*/
+/*        background: #fafafa;*/
+/*    }*/
+
+/*    .col-3 {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (max-width: 600px) {*/
+/*    .container {*/
+/*        width: 100% !important;*/
+/*    }*/
+
+/*    .navbar .container {*/
+/*        padding: 15px 10px !important;*/
+/*    }*/
+
+/*    .col-9 {*/
+/*        margin-top: 4px;*/
+/*        min-width: 100%;*/
+/*    }*/
+
+/*    .statuses {*/
+/*        margin-bottom: 0;*/
+/*    }*/
+
+/*    .col-9 .card {*/
+/*        margin-bottom: 0;*/
+/*        width: 100%;*/
+/*        border: none;*/
+/*    }*/
+
+/*    .imgBx {*/
+/*        position: relative;*/
+/*        width: 100%;*/
+/*        min-height: 400px;*/
+/*        margin: 10px 0 15px;*/
+/*    }*/
+
+/*}*/
+

@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
 {% block content %}
     <div class="edit-delete edit-photo">
-        <form action="{% url 'book buy' book_pk=book_pk %}" method="post">
+        <form action="{% url 'book buy' book_pk=book.pk %}" method="post">
             {% if form.instance.book_photo %}
                 <img src="{{ form.instance.book_photo.url }}" style="width: 130px; height: 160px; border: 1px solid black; border-radius: 2%" alt="Book Photo">
             {% endif %}
             {{ form.as_p }}
-            <button class="buy-btn" type="submit">Buy</button>
+            <button class="buy-btn" style="margin-top: 20px; margin-left: 160px;" type="submit">Continue</button>
             {% csrf_token %}
         </form>
     </div>

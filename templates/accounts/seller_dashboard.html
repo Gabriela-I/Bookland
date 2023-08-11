@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="edit-delete edit-photo">
+        <h2>Your Purchase Requests:</h2>
+        {% for request in purchase_requests %}
+            <p class="book-text" id="comment-here">Book: {{ request.book.title }}</p>
+            <p class="book-text">Buyer: {{ request.first_name }} {{ request.last_name }}</p>
+            <p class="book-text">Shipping Address: {{ request.address_for_delivery }}</p>
+            <p class="book-text">Prise: € {{ request.book.price| floatformat:'2g' }}</p>
+            <p class="book-text">Payment method: {{ request.payment_method }}</p>
+            <p class="book-text">Delivery method: {{ request.delivery_method }}</p>
+
+
+            <a href="{% url 'accept_request' request_pk=request.pk %}">
+                <button class="edit-book-profile">Accept
+                </button>
+            </a>
+
+            <a href="{% url 'reject_request' request_pk=request.pk %}">
+                <button class="delete-book-profile">Reject
+                </button>
+            </a>
+
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+
+
+
+

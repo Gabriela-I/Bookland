@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="edit-delete edit-photo">
+        <form action="{% url 'finish purchase' book_pk=book.pk %}" method="post">
+            {{ form.as_p }}
+            <button class="buy-btn" style="margin-top: 20px; margin-left: 160px;" type="submit">Buy</button>
+            {% csrf_token %}
+        </form>
+    </div>
+{% endblock %}

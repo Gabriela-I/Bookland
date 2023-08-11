@@ -3,7 +3,7 @@
     <div class="login-register-div">
         <div class="login-register-box">
             <h1>Registered users</h1>
-            <form action="{% url 'login user' %}" method="post">
+            <form action="{% url 'login user' %}?next={{ request.GET.next }}" method="post">
                 <div class="label-input">
                     <label for="username">Username: {{ form.username }} </label>
                 </div>

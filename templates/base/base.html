@@ -12,9 +12,6 @@
 <body>
 <div id="box">
     <header>
-
-        <!-- Navigation Bar -->
-        {#        <h1><a class="index-navigation" href="{% url 'index' %}"><span>B</span>OOKLAND </a></h1>#}
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
@@ -44,17 +41,10 @@
                                         border-radius: 8px; width: 250px;">Authors</a>
                                 <hr class="dropdown-divider">
                                 {% for item in cat_menu %}
-                                    {% if item == 'Authors' %}
-                                        <a href="{% url 'author list' %} " style="
+                                    <a href="{% url 'category' item %} " style="
                                         border-radius: 8px; width: 250px;">
-                                            {{ item }}</a>
-                                    {% else %}
-                                        <a href="{% url 'category' item %} " style="
-                                        border-radius: 8px; width: 250px;">
-                                            {{ item }}</a>
-                                    {% endif %}
+                                        {{ item }}</a>
                                 {% endfor %}
-                                <!-- Add more category links as needed -->
                             </div>
                         </li>
                         <li class="nav-item">

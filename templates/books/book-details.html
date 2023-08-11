@@ -14,13 +14,18 @@
                     <p>{{ book.title }}</p>
 
                     {% if book.user == request.user %}
-                        <a href="{% url 'book edit' book_pk=book.pk %}">
-                            <img class="edit-img" src="{% static 'images/pencil-icon.png' %}" alt="edit button">
-                        </a>
+                        <div class="delete-edit-btn-box">
+                            <a href="{% url 'book edit' book_pk=book.pk %}">
+                                <button class="edit-book-profile">Edit
+                                </button>
+                            </a>
 
-                        <a href="{% url 'book delete' book_pk=book.pk %}">
-                            <img class="bin-img" src="{% static 'images/delete-icon.png' %}" alt="bin button">
-                        </a>
+                            <a href="{% url 'book delete' book_pk=book.pk %}">
+                                <button class="delete-book-profile">Delete
+                                </button>
+                            </a>
+                        </div>
+
                     {% else %}
                         {% if not has_marked %}
                             <a href="{% url 'bookmark' book_pk=book.pk %}" class="add-remove-list-btn"
@@ -51,7 +56,8 @@
                         <label for="id_text"></label>
                         <textarea name="text" cols="60" rows="3" placeholder="Add comment..." maxlength="400"
                                   required="" id="id_text" style="text-indent: 15px;
-                                  background-color: rgb(227, 206, 206); border-radius: 15px; border: 1px solid black; "></textarea>
+                                  background-color: rgb(227, 206, 206); border-radius: 15px;
+                                  border: 1px solid black; position: inherit; height: auto "></textarea>
                         {{ form.text }}
                         <button type="submit">Post</button>
                         {% csrf_token %}
