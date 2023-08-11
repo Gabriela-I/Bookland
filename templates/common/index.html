@@ -3,36 +3,52 @@
 {% block content %}
     <style>
         body {
-            background-image: url("static/images/2964941.jpg");
+            background-image: url('static/images/2964941.jpg');
             background-size: cover;
             background-repeat: no-repeat;
         }
     </style>
-    <div>
-    {% if last_3_books %}
+    <div class="content-wrapper">
+        <div class="searchbar">
+            <form class="searchbar" method="post" action="{% url 'search' %}" role="search"
+                  style="display: flex; margin-top: 130px; width: 400px; gap: 20px;">
+                {% csrf_token %}
+                <input type="search" placeholder="Search" aria-label="Search" name="searched">
+                <button type="submit">Search</button>
+            </form>
+        </div>
         <div>
-            <h1 class="text-index">Last uploaded books:</h1>
-        </div>
-        <div style="justify-content: center; margin-top: 50px ">
-            {% for book in last_3_books %}
-                <div class="book-card">
-                    <div class="image-wrap">
-                        <img src="{{ book.book_photo.url }}"
-                             alt="{{ book.title }}">
-                    </div>
-                    <div class="card-text">
-                        <h3>{{ book.title|truncatechars:30 }}</h3>
-                        <h1>{{ book.author|truncatechars:30 }}</h1>
-                        <h1>{{ book.publisher|truncatechars:30 }}</h1>
-                    </div>
-
-                    <div class="details-buttons">
-                        <a href="{% url 'book details' book_pk=book.pk %}" class="details-btn">Details</a>
-                    </div>
+            {% if last_3_books %}
+                <div>
+                    <h1 class="text-index">Last uploaded books:</h1>
                 </div>
-            {% endfor %}
+                <div style=" margin-top: 20px; ">
+                    {% for book in last_3_books %}
+                        <div class="catalogue-book-card">
+                            <div class="book_img">
+                                <a href="{% url 'book details' book_pk=book.pk %}">
+                                <img src="{{ book.book_photo.url }}"
+                                     alt="{{ book.title }}"></a>
+                            </div>
+                            <div class="card-text">
+                                <div>
+                                    <a href="{% url 'book details' book_pk=book.pk %}" style="height: 50px;">{{ book.title|truncatechars:40 }}</a>
+                                </div>
+                                <div>
+                                    <a href="{% url 'author books' author_name=book.author %}" style="color: #cb6b6b" >{{ book.author|truncatechars:20 }}</a>
+                                </div>
+                                <div>
+                                    <h1>{{ book.publisher|truncatechars:20 }}</h1>
+                                </div>
+                                <div>
+                                    <h2>€ {{ book.price|floatformat:'2g' }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
     </div>
 
 

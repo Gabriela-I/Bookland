@@ -1,21 +1,28 @@
 {% extends 'base/base.html' %}
 {% block content %}
-
     <div class="login-register-div">
         <div class="login-register-box">
-            <h1>Bookland</h1>
+            <h1>Registered users</h1>
             <form action="{% url 'login user' %}" method="post">
-                {{ form.username }}
-                {{ form.password }}
-                <input type="hidden" value="{{ next }}" name="next"/>
-                {% csrf_token %}
+                <div class="label-input">
+                    <label for="username">Username: {{ form.username }} </label>
+                </div>
+                <br>
+                <div class="label-input">
+                    <label for="password">Password:{{ form.password }}</label>
+                </div>
+                <br>
+                <div style="width: 300px">
+                     {% if form.non_field_errors %}
+                    <div class="errorlist">
+                        {{ form.non_field_errors|join:", " }}
+                    </div>
+                {% endif %}
+                </div>
 
+                {% csrf_token %}
                 <button type="submit">Log in</button>
+                <p>You don't have an account? <a href="{% url 'register user' %}?next={{ next }}">Register</a></p>
             </form>
         </div>
-        <div class="second-option">
-
-            <p>Don't have account? <a href="{% url 'register user' %}?next={{ next }}">Register</a></p>
-        </div>
-    </div>
 {% endblock %}

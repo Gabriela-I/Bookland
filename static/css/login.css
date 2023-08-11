@@ -1,23 +1,32 @@
 .login-register-div {
-	margin-top: 13%;
+	margin-top: 10%;
 }
 
-.login-register-box, .second-option {
+.login-register-box {
 	display: block;
-	width: 300px;
-	background-image: linear-gradient(160deg, #5E5558 0%, #990a0a 100%);
-	border: 1px solid rgb(156, 152, 152);
-	padding: 40px;
-	margin-bottom: 15px;
-	border-radius: 3px;
-	border: 1px solid;
+    background-image: linear-gradient(160deg, #5E5558 0%, #990a0a 100%);
+    border: 1px solid rgb(156, 152, 152);
+    padding: 40px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border: 1px solid;
+    list-style-type: none;
+	text-align: center;
 }
 
 .login-register-box h1 {
 	font-family: cursive;
-	font-size: 40px;
+	font-size: 30px;
 	text-align: center;
 	margin-top: -10px;
+}
+
+.login-register-box a {
+	color: #1294ca;
+}
+
+.login-register-box p {
+	margin-top: 15px;
 }
 
 .login-register-box label {
@@ -26,26 +35,28 @@
 
 .login-register-box input {
 	background-color: rgb(240, 230, 230);
-	border: 0.1px solid rgb(186, 184, 184);
+	border: 1px solid black;
 	border-radius: 3px;
 	height: 30px;
 	width: 100%;
 	padding-left: 2px;
 	margin-top: 10px;
+	text-align: center;
 }
+
+.login-register-box .label-input {
+    display: table-caption;
+    margin-top: -10px;
+}
+
 
 .login-register-box button {
 	background-color: rgb(158, 117, 117);
-	color: white;
+	color: black;
 	font-weight: bold;
-	border: none;
-	width: 100%;
-	border-radius: 3px;
+	border: 1px solid black;
+	width: 35%;
+	border-radius: 4px;
 	margin-top: 10px;
 	height: 30px;
-}
-
-.second-option {
-	text-align: center;
-	padding: 20px;
 }

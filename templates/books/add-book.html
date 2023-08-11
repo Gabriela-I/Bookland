@@ -4,7 +4,7 @@
         <h2>Add book</h2>
         <form action="{% url 'book add' %}" method="post" enctype="multipart/form-data">
             {{ form.as_p }}
-            <button class="add-btn" type="submit">Add Book</button>
+            <button class="main-btn" type="submit">Add Book</button>
             {% csrf_token %}
         </form>
     </div>

@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from Bookland.books.models import Category, Book
+from Bookland.books.models import Book
 
 
-# def index(request):
-#     return render(request, 'common/index.html')
 
 class IndexView(TemplateView):
     template_name = 'common/index.html'
@@ -26,10 +25,41 @@ class IndexView(TemplateView):
         return context
 
 
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        book_paginator = Paginator(Book.objects.filter(title__contains=searched), 8)
+        page = request.GET.get('page')
+        books = book_paginator.get_page(page)
+        page_range = book_paginator.page_range
+        if len(books) == 0:
+            pattern = searched
+            searched = None
+            context = {
+                'searched': searched,
+                'pattern': pattern,
+            }
+            return render(request, 'common/search.html', context)
+        else:
+            context = {
+                'books': books,
+                'searched': searched,
+                'page_range': page_range,
+            }
+            return render(request, 'common/search.html', context)
+    else:
+        return render(request, 'common/search.html')
+
+
 def category(request, cats):
-    books = Book.objects.filter(category=cats)
+    book_paginator = Paginator(Book.objects.filter(category=cats), 8)
+    page = request.GET.get('page')
+    books = book_paginator.get_page(page)
+    page_range = book_paginator.page_range
     context = {
         'cats': cats,
         'books': books,
+        'page_range': page_range,
     }
-    return render(request, 'categories.html', context)
+    return render(request, 'common/categories.html', context)
+

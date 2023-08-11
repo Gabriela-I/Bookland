@@ -1,31 +1,51 @@
 {% extends 'base/base.html' %}
 {% block content %}
+<div class="login-register-div">
+    <div class="login-register-box">
+        <h1>New clients</h1>
+        <form action="{% url 'register user' %}" method="post">
+            <div class="label-input">
+                <label for="username">Username: {{ form.username }} </label>
+                {% if form.username.errors %}
+                    <div class="errorlist">
+                        {{ form.username.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="label-input">
+                <label for="email">Email:{{ form.email }}</label>
+                {% if form.email.errors %}
+                    <div class="errorlist">
+                        {{ form.email.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="label-input">
+                <label for="password1">Password:{{ form.password1 }}</label>
+                {% if form.password1.errors %}
+                    <div class="errorlist">
+                        {{ form.password1.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="label-input">
+                <label for="password2">Repeat Password:{{ form.password2 }} </label>
+                {% if form.password2.errors %}
+                    <div class="errorlist">
+                        {{ form.password2.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <input type="hidden" name="next" value="{{ next }}">
+            {% csrf_token %}
+            <button type="submit">Register</button>
 
-    <!-- Start Register Section -->
-    <div class="login-register-div">
-        <div class="login-register-box">
-            <h1>Bookland</h1>
-
-            <!-- Start Register Form -->
-            <form action="{% url 'register user' %}" method="post">
-                {{ form.username }}
-                {{ form.email }}
-                {{ form.password1 }}
-                {{ form.password2 }}
-                <input type="hidden" name="next" value="{{ next }}">
-                {% csrf_token %}
-                <!-- Register Button -->
-                <button type="submit">Register</button>
-            </form>
-            <!-- End Register Form -->
-
-        </div>
-        <div class="second-option">
-
-            <!-- Link to Login Page -->
-            <p>Have an account? <a href="{% url 'login user' %}">Log in</a></p>
-        </div>
+            <p>You are already registered? <a href="{% url 'login user' %}">Log in</a></p>
+        </form>
     </div>
-    <!-- End Register Section -->
-
+</div>
 {% endblock %}

@@ -2,40 +2,83 @@
 {% load static %}
 
 {% block content %}
-    <div class="book-container">
-        <div class="book">
-            <div class="book-data">
-                <div class="book_img">
-                    <div class="book_image">
-                        <img src="{{ book.book_photo.url }}" alt="img">
-                    </div>
+    <div class="book">
+        <div class="book-data">
+            <div class="book_details_img">
+                <div class="book_image">
+                    <img src="{{ book.book_photo.url }}" alt="img">
                 </div>
-                <div class="personal">
-                    <div class="edit">
-                        <p>{{ book.title }}</p>
+            </div>
+            <div class="personal">
+                <div class="edit">
+                    <p>{{ book.title }}</p>
 
-                        {#                    <a href="{% url 'edit user' pk=object.pk %}">#}
-                        {#                        <img class="edit-img" src="{% static 'images/pencil-icon.png' %}" alt="edit button">#}
-                        {#                    </a>#}
-                        {##}
-                        {#                    <a href="{% url 'delete user' pk=object.pk %}">#}
-                        {#                        <img class="bin-img" src="{% static 'images/delete-icon.png' %}" alt="bin button">#}
-                        {#                    </a>#}
+                    {% if book.user == request.user %}
+                        <a href="{% url 'book edit' book_pk=book.pk %}">
+                            <img class="edit-img" src="{% static 'images/pencil-icon.png' %}" alt="edit button">
+                        </a>
 
-                    </div>
-                    {#                    <button class="buy-btn" type="submit">Buy</button>#}
+                        <a href="{% url 'book delete' book_pk=book.pk %}">
+                            <img class="bin-img" src="{% static 'images/delete-icon.png' %}" alt="bin button">
+                        </a>
+                    {% else %}
+                        {% if not has_marked %}
+                            <a href="{% url 'bookmark' book_pk=book.pk %}" class="add-remove-list-btn"
+                               style="background-color: #139208; border-radius: 20px; width: 200px"> + Add to My
+                                List</a>
+                        {% else %}
+                            <a href="{% url 'remove from my list' book_pk=book.pk %}" class="add-remove-list-btn"
+                               style="background-color: #c40b0b; border-radius: 20px; width: 200px"> - Remove from My
+                                List</a>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+                {% if book.user != request.user %}
                     <a href="{% url 'book buy' book_pk=book.pk %}" class="buy-btn">Buy</a>
+                {% endif %}
 
 
-                    <p class="email">Author: {{ book.author }}</p>
-                    <p class="email">Publisher: {{ book.publisher }}</p>
-                    <p class="email">Condition: {{ book.condition }}</p>
-                    <p class="email">Prise: {{ book.price| floatformat:'2g' }}€</p>
-                    <p class="email">Description: {{ book.description }}</p>
+                <p class="book-text" id="comment-here">Author: {{ book.author }}</p>
+                <p class="book-text">Publisher: {{ book.publisher }}</p>
+                <p class="book-text">Condition: {{ book.condition }}</p>
+                <p class="book-text">Prise: {{ book.price| floatformat:'2g' }}€</p>
+                <p class="book-text" >Description:</p>
+                <p class="book-text">{{ book.description }}</p>
 
+                <div class="Comments" >
+                    <form method="post" action="{% url 'book comment' book_pk=book.pk %}">
+                        <label for="id_text"></label>
+                        <textarea name="text" cols="60" rows="3" placeholder="Add comment..." maxlength="400"
+                                  required="" id="id_text" style="text-indent: 15px;
+                                  background-color: rgb(227, 206, 206); border-radius: 15px; border: 1px solid black; "></textarea>
+                        {{ form.text }}
+                        <button type="submit">Post</button>
+                        {% csrf_token %}
+                    </form>
                 </div>
+
+                <div class="comment-section">
+                    {% for comment in comments reversed %}
+                        <div class="comm" id="comment-here">
+                            <div class="header">
+                                <div class="user-data">
+                                    {{ comment.user }}
+                                </div>
+                                <div class="date-data">
+                                    {{ comment.publication_date_and_time }}
+                                </div>
+                            </div>
+                            <div class="comment-text">
+                                {{ comment.text }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
+
 
 {% endblock %}
