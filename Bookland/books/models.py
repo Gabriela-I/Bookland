@@ -10,18 +10,6 @@ from Bookland.authors.models import Author
 UserModel = get_user_model()
 
 
-class Category(models.Model):
-    name = models.CharField(
-        max_length=100,
-    )
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('index')
-
-
 class Book(models.Model):
     MIN_PRICE = 1
     CONDITION = (
@@ -30,22 +18,6 @@ class Book(models.Model):
         ('Good', 'Good'),
         ('Not very good', 'Not very good'),
     )
-    # CATEGORIES = (
-    #     ('Romance', 'Romance'),
-    #     ('Fantasy', 'Fantasy'),
-    #     ('Criminal', 'Criminal'),
-    #     ('Historical novel', 'Historical novel'),
-    #     ('Thriller', 'Thriller'),
-    #     ('Science fiction', 'Science fiction'),
-    #     ('Poetry', 'Poetry'),
-    #     ('Biography/autobiography', 'Biography/autobiography'),
-    #     ('Health', 'Health'),
-    #     ('Psychology', 'Psychology'),
-    #     ('Esoteric', 'Esoteric'),
-    #     ('Home, Family, Hobby', 'Home, Family, Hobby'),
-    #     ("Children's literature", "Children's literature"),
-    #     ('Other', 'Other'),
-    # )
 
     book_photo = models.ImageField(
         upload_to='mediafiles/book_photos/',
@@ -105,3 +77,44 @@ class Book(models.Model):
         default=timezone.now,
     )
 
+
+class MyList(models.Model):
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=True,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.DO_NOTHING,
+    )
+
+
+class BookComment(models.Model):
+    MAX_TEXT_LENGTH = 400
+    text = models.CharField(
+        max_length=MAX_TEXT_LENGTH,
+        null=False,
+        blank=False,
+
+    )
+
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=True,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.DO_NOTHING,
+    )
+
+    publication_date_and_time = models.DateTimeField(
+        auto_now_add=True,
+        blank=True,
+        null=False,
+    )

@@ -5,3 +5,8 @@ def validate_only_alphabetical(value):
     for letter in value:
         if not letter.isalpha():
             raise ValidationError('The username must contain only letters!')
+
+
+def upper_first_letter(value):
+    if not value[0].isupper():
+        raise ValidationError('The first letter must be capitalized')

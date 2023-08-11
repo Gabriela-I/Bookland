@@ -1,14 +1,12 @@
 from django.contrib.auth import get_user_model, views, login
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import resolve_url, render
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.views import generic
-
 from Bookland.accounts.forms import RegisterUserForm, UserEditForm
-from Bookland.accounts.models import BooklandUser
-from Bookland.books.models import Category
+from Bookland.books.models import Book
+from django.core.paginator import Paginator
 
 UserModel = get_user_model()
 
@@ -36,7 +34,17 @@ class RegisterUserView(generic.CreateView):
         return context
 
     def get_success_url(self):
-        return self.request.POST.get('next', self.success_url)
+        next_url = self.request.POST.get('next', None)
+        if next_url:
+            try:
+                resolve_url(next_url)
+            except:
+                next_url = None
+
+        if not next_url:
+            next_url = self.success_url
+
+        return next_url
 
 
 class LogoutUserView(LoginRequiredMixin, views.LogoutView):
@@ -46,7 +54,7 @@ class LogoutUserView(LoginRequiredMixin, views.LogoutView):
 class ProfileDetailsView(generic.DetailView):
     template_name = 'accounts/profile-details-page.html'
     model = UserModel
-    profile_image = static('images/default-person-image.png')
+    profile_image = static('images/profile_image.jpg')
 
     def get_profile_image(self):
         if self.object.profile_picture is not None:
@@ -54,11 +62,17 @@ class ProfileDetailsView(generic.DetailView):
         return self.profile_image
 
     def get_context_data(self, **kwargs):
-        cat_menu = Category.objects.all()
         context = super().get_context_data(**kwargs)
+        number_of_items_per_page = 3
+        user_books = Book.objects.filter(user=self.request.user).order_by('-id')
+        book_paginator = Paginator(user_books, number_of_items_per_page)
+        page_number = self.request.GET.get('page')
+        books = book_paginator.get_page(page_number)
+        page_range = book_paginator.page_range
+        context['page_range'] = page_range
         context['profile_image'] = self.get_profile_image()
-        context['books'] = self.request.user.book_set.all()
-        context['cat_menu'] = cat_menu
+        context['books'] = books
+        context['books_count'] = self.request.user.book_set.count()
 
         return context
 
@@ -75,6 +89,7 @@ class ProfileEditView(LoginRequiredMixin, generic.UpdateView):
 class ProfileDeleteView(generic.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
     model = UserModel
+
     success_url = reverse_lazy('login user')
 
 
