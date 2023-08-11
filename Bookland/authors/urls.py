@@ -6,3 +6,4 @@ urlpatterns = (
     path('<str:author_name>/', author_books, name='author books'),
     path('author_list/', author_list, name='author list'),
 )
+

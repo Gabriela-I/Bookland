@@ -27,3 +27,4 @@ def author_list(request):
 #     my_list_entries = MyList.objects.filter(user=user)
 #     book_ids = my_list_entries.values_list('book_id', flat=True)
 #     books = Book.objects.filter(pk__in=book_ids)
+

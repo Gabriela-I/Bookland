@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core import validators
 from django.db import models
+from django.templatetags.static import static
 
 from Bookland.accounts.validators import validate_only_alphabetical, upper_first_letter
 
@@ -17,7 +18,9 @@ class BooklandUser(AbstractUser):
         validators=(
             validators.MinLengthValidator(FIRST_NAME_MIN_LENGTH),
             validate_only_alphabetical, upper_first_letter,
-        )
+        ),
+        null=True,
+        blank=True,
     )
 
     last_name = models.CharField(
@@ -25,22 +28,13 @@ class BooklandUser(AbstractUser):
         validators=(
             validators.MinLengthValidator(LAST_NAME_MIN_LENGTH),
             validate_only_alphabetical, upper_first_letter,
-        )
+        ),
+        null=True,
+        blank=True,
     )
 
     email = models.EmailField(
         unique=True,
-    )
-
-    address = models.CharField(
-        max_length=150,
-        null=True,
-        blank=True,
-    )
-
-    phone_number = models.IntegerField(
-        null=True,
-        blank=True,
     )
 
     gender = models.CharField(
@@ -49,9 +43,10 @@ class BooklandUser(AbstractUser):
         blank=True,
     )
 
-    profile_picture = models.URLField(
-        null=True,
-        blank=True,
+    profile_picture = models.ImageField(
+        upload_to='mediafiles/profile_photos/',
+        null=False,
+        blank=False,
     )
 
     @property

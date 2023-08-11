@@ -34,14 +34,26 @@ class UserEditForm(model_forms.ModelForm):
 
     class Meta:
         model = UserModel
-        fields = (
-        'username', 'first_name', 'last_name', 'profile_picture', 'gender', 'phone_number', 'address', 'email')
-        labels = {'username': 'Username:',
-                  'first_name': 'First Name:',
-                  'last_name': 'Last Name:',
-                  'email': 'Email:',
-                  'profile_picture': 'Image:',
-                  'address': 'Address:',
-                  'phone_number': 'Phone number:',
-                  'gender': 'Gender:',
-                  }
+        fields = ['username', 'first_name', 'last_name', 'profile_picture', 'gender', 'email']
+        labels = {
+            'username': 'Username:',
+            'first_name': 'First Name:',
+            'last_name': 'Last Name:',
+            'email': 'Email:',
+            'profile_picture': 'Image:',
+            'gender': 'Gender:',
+        }
+        widgets = {
+            'profile_picture': model_forms.FileInput(attrs={
+                # 'style': 'display: flex; gap: 30px;',
+            })
+        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        new_profile_picture = self.cleaned_data.get('profile_picture', None)
+        if new_profile_picture:
+            user.profile_picture = new_profile_picture
+        if commit:
+            user.save()
+        return user

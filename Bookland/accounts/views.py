@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model, views, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import resolve_url, render
+from django.shortcuts import resolve_url, render, redirect
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.views import generic
 from Bookland.accounts.forms import RegisterUserForm, UserEditForm
-from Bookland.books.models import Book
+from Bookland.books.models import Book, Purchase
 from django.core.paginator import Paginator
 
 UserModel = get_user_model()
@@ -63,6 +63,7 @@ class ProfileDetailsView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        requests = Purchase.objects.filter(seller=self.request.user)
         number_of_items_per_page = 3
         user_books = Book.objects.filter(user=self.request.user).order_by('-id')
         book_paginator = Paginator(user_books, number_of_items_per_page)
@@ -73,6 +74,7 @@ class ProfileDetailsView(generic.DetailView):
         context['profile_image'] = self.get_profile_image()
         context['books'] = books
         context['books_count'] = self.request.user.book_set.count()
+        context['request'] = requests
 
         return context
 
@@ -92,4 +94,27 @@ class ProfileDeleteView(generic.DeleteView):
 
     success_url = reverse_lazy('login user')
 
+
+def seller_dashboard(request):
+    purchase_requests = Purchase.objects.filter(seller=request.user)
+
+    context = {
+        'purchase_requests': purchase_requests,
+    }
+    return render(request, 'accounts/seller_dashboard.html', context)
+
+
+def accept_request(request, request_pk):
+    req = Purchase.objects.get(pk=request_pk)
+    book = Book.objects.get(pk=req.book.pk)
+    book.delete()
+    req.delete()
+
+    return redirect('seller dashboard')
+
+
+def reject_request(request, request_pk):
+    req = Purchase.objects.get(pk=request_pk)
+    req.delete()
+    return redirect('seller dashboard')
 
