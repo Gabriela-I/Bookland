@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="edit-delete edit-photo">
+        <h2>Delete Pet</h2>
+        <form action="{% url 'book delete' book_pk=book_pk %}" method="post" enctype="multipart/form-data">
+
+            <div>{% if form.instance.book_photo %}
+                <img src="{{ form.instance.book_photo.url }}"
+                     style="width: 130px; height: 160px; border: 1px solid black; border-radius: 2%" alt="Book Photo">
+            {% endif %}</div>
+            {{ form.as_p }}
+            <div >
+                <button class="delete-btn" type="submit">Delete</button>
+                <a class="btn btn-primary" href="javascript:history.back()">
+                <button class="goback-btn" type="button">Go back</button>
+                </a>
+            </div>
+
+            {% csrf_token %}
+        </form>
+
+    </div>
+{% endblock %}

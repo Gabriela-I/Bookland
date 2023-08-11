@@ -1,0 +1,19 @@
+<div class="pagination">
+            {% if books.has_previous %}
+                <a style="color: pink" href="?page={{ books.previous_page_number }}">&laquo;&laquo;&laquo;</a>
+            {% else %}
+                &laquo;&laquo;&laquo;
+            {% endif %}
+            {% for num in page_range %}
+                {% if num == books.number %}
+                    <i class="current">{{ num }}</i>
+                {% else %}
+                    <a style="color: pink" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if books.has_next %}
+                <a style="color: pink" href="?page={{ books.next_page_number }}">&raquo&raquo&raquo</a>
+            {% else %}
+                &raquo;&raquo;&raquo;
+            {% endif %}
+        </div>

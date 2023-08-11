@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="edit-delete edit-photo">
+        <h2>Edit Pet</h2>
+        <form action="{% url 'book edit' book_pk=book_pk %}" method="post" enctype="multipart/form-data">
+
+            <div>{% if form.instance.book_photo %}
+                <img src="{{ form.instance.book_photo.url }}"
+                     style="width: 130px; height: 160px; border: 1px solid black; border-radius: 2%" alt="Book Photo">
+            {% endif %}</div>
+            {{ form.as_p }}
+            <div >
+                <button class="main-btn" style="margin-left: 170px;" type="submit">Edit</button>
+            </div>
+
+            {% csrf_token %}
+        </form>
+
+    </div>
+{% endblock %}

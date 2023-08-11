@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="content-container">
+        <div class="title_text">
+            <h1>{{ author_name }}</h1>
+        </div>
+        <div class="catalogue-container">
+            {% for book in books %}
+                <div class="catalogue-book-card">
+                    <div class="book_img">
+                        <a href="{% url 'book details' book_pk=book.pk %}">
+                            <img src="{{ book.book_photo.url }}"
+                                 alt="{{ book.title }}"></a>
+                    </div>
+                    <div class="card-text">
+                        <div>
+                            <a class="card-text" href="{% url 'book details' book_pk=book.pk %}"
+                               style="height: 50px;">{{ book.title|truncatechars:40 }}</a>
+                        </div>
+                        <div>
+                            <h1>{{ book.author|truncatechars:30 }}</h1>
+                        </div>
+                        <div>
+                            <h1>{{ book.publisher|truncatechars:30 }}</h1>
+                        </div>
+                        <div>
+                            <h2>€ {{ book.price|floatformat:'2g' }}</h2>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% include 'common/pagination.html' %}
+    </div>
+
+{% endblock %}
