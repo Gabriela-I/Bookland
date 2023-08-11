@@ -60,3 +60,39 @@
     margin-top: 20px;
     align-items: center;
 }
+
+.delete-edit-btn-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.edit-book-profile {
+    background-color: rgb(120 129 118);
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 15px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 0.8;
+}
+
+.delete-book-profile {
+    background-color: rgb(223 8 8);
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 15px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 0.8;
+}

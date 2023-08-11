@@ -146,12 +146,13 @@
 
 .methods {
     list-style-type: none;
-    margin-left: -75px;
     width: 250px;
 }
 
 .methods input[type="radio"] {
     margin-right: -115px;
+    margin-left: -130px;
+
 }
 
 .comment-section {

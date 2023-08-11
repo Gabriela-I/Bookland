@@ -487,6 +487,38 @@ main .container {
     gap: 10px;
 }
 
+.Comments textarea {
+    width: 85%;
+    resize: none;
+    overflow: hidden;
+    height: 20px;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #262626;
+
+}
+
+textarea {
+    position: absolute;
+    left: 30px;
+    width: 85%;
+    resize: none;
+    overflow: hidden;
+    height: 20px;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #262626;
+    background: none;
+}
+
+textarea.text::placeholder {
+    color: #777;
+}
+
 a {
     text-decoration: none;
 }

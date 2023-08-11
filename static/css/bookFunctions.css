@@ -13,6 +13,10 @@
     border: 1px solid;
     list-style-type: none;
 }
+.edit-delete form p {
+    display: flex;
+    gap: 30px;
+}
 
 .edit-delete h2 {
     text-align: center;
@@ -85,7 +89,7 @@
 
 .buy-btn {
     background-color: rgb(158, 117, 117);
-    border: none;
+    border: 1px solid black;
     color: white;
     padding: 10px 20px;
     text-align: center;
