@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
+from decouple import config
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,14 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_vjg%8g+32qit57f=cah+azp_(m+445ss5@wl74v9pufu!d0z6'
+SECRET_KEY = config('SECRET_KEY', None)  #'django-insecure-_vjg%8g+32qit57f=cah+azp_(m+445ss5@wl74v9pufu!d0z6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', False)
 
-ALLOWED_HOSTS = [
-    # '*',
-]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', '').split(', ')
 
 # Application definition
 
@@ -83,14 +82,18 @@ WSGI_APPLICATION = 'Bookland.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bookland_db',
-        'USER': 'postgres-user',
-        'PASSWORD': 'Taralej1',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': config('DB_NAME', None),
+        'USER': config('DB_USER', None),
+        'PASSWORD': config('DB_PASSWORD', None),
+        'HOST': config('DB_HOST', None),
+        'PORT': config('DB_PORT', '5432'),
     }
 }
-
+print("DB_NAME:", os.getenv('DB_NAME'))
+print("DB_USER:", os.getenv('DB_USER'))
+print("DB_PASSWORD:", os.getenv('DB_PASSWORD'))
+print("DB_HOST:", os.getenv('DB_HOST'))
+print("DB_PORT:", os.getenv('DB_PORT'))
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
